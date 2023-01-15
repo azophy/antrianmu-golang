@@ -6,6 +6,7 @@ import (
 
 	"github.com/labstack/echo/v4"
   "antrianmu-golang/web/common"
+  eventController "antrianmu-golang/web/controllers/event"
 )
 
 func main() {
@@ -43,6 +44,8 @@ func main() {
           "APP_URL": confAppUrl,
       })
   }).Name = "homepage"
+
+  e.POST("/event", eventController.create)
 
 	e.Logger.Fatal(e.Start(":" + confAppPort))
 }
