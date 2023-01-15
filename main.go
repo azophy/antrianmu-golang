@@ -28,6 +28,16 @@ func main() {
     confAppUrl = "http://localhost:" + confAppPort
   }
 
+  confDbUrl := "database.sqlite"
+  db, err := sql.Open("sqlite3", confDbUrl)
+  if err != nil {
+    log.Fatal(err)
+  }
+
+  AppConf := map[string]interface{}{
+    "db": db,
+  }
+
   e.GET("/", func(c echo.Context) error {
       return c.Render(http.StatusOK, "index.html", map[string]interface{}{
           "APP_URL": confAppUrl,
