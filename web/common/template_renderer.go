@@ -1,5 +1,5 @@
 // adapted from https://echo.labstack.com/guide/templates/
-package main
+package common
 
 import (
   "io"

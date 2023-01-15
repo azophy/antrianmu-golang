@@ -5,12 +5,13 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo/v4"
+  "antrianmu-golang/web/common"
 )
 
 func main() {
 	e := echo.New()
 
-  e.Renderer = NewTemplateRenderer("resources/views/*.html")
+  e.Renderer = common.NewTemplateRenderer("resources/views/*.html")
   e.Static("/assets", "resources/assets")
 
 	//e.GET("/", func(c echo.Context) error {
