@@ -17,7 +17,12 @@ type Event struct {
 
 var (
   tablename = "queue_event"
+  ErrDuplicate    = errors.New("record already exists")
+  //ErrNotExists    = errors.New("row not exists")
+  //ErrUpdateFailed = errors.New("update failed")
+  //ErrDeleteFailed = errors.New("delete failed")
 )
+
 
 type SQLiteRepository struct {
   db *sql.DB
@@ -44,20 +49,20 @@ func (r *SQLiteRepository) Migrate() error {
 }
 
 func (r *SQLiteRepository) Create(event Event) (*Event, error) {
-  res, err := r.db.Exec("INSERT INTO queue_event(title, description) values(?,?,?)", website.Title, website.Description)
+  res, err := r.db.Exec("INSERT INTO queue_event(title, description) values(?,?)", event.Title, event.Description)
   if err != nil {
-  var sqliteErr sqlite3.Error
-  if errors.As(err, &sqliteErr) {
-  if errors.Is(sqliteErr.ExtendedCode, sqlite3.ErrConstraintUnique) {
-  return nil, ErrDuplicate
-  }
-  }
-  return nil, err
+    var sqliteErr sqlite3.Error
+    if errors.As(err, &sqliteErr) {
+      if errors.Is(sqliteErr.ExtendedCode, sqlite3.ErrConstraintUnique) {
+        return nil, ErrDuplicate
+      }
+    }
+    return nil, err
   }
 
   id, err := res.LastInsertId()
   if err != nil {
-  return nil, err
+    return nil, err
   }
   event.ID = id
 
