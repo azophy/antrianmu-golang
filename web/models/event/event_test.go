@@ -19,7 +19,7 @@ func TestSqlBasic(t *testing.T) {
     t.Fail()
   }
 
-  eventRepo := NewSQLiteRepository(db)
+  eventRepo := NewEventRepository(db)
   if err := eventRepo.Migrate(); err != nil {
     t.Log("Failed migrating table creation", err)
     t.Fail()

@@ -1,12 +1,16 @@
 package main
 
 import (
+  "log"
 	"net/http"
-	"os"
+  "database/sql"
 
-	"antrianmu-golang/web/common"
-	eventController "antrianmu-golang/web/controllers/event"
 	"github.com/labstack/echo/v4"
+  _ "github.com/mattn/go-sqlite3"
+
+	"antrianmu-golang/web/config"
+	"antrianmu-golang/web/common"
+  eventController "antrianmu-golang/web/controllers/event"
 )
 
 func main() {
@@ -19,33 +23,22 @@ func main() {
 	//return c.String(http.StatusOK, "Hello, World!")
 	//})
 
-	confAppPort := os.Getenv("APP_PORT")
-	if confAppPort == "" {
-		confAppPort = "3000"
-	}
+  config.Load()
 
-	confAppUrl := os.Getenv("APP_URL")
-	if confAppUrl == "" {
-		confAppUrl = "http://localhost:" + confAppPort
-	}
-
-	confDbUrl := "database.sqlite"
-	db, err := sql.Open("sqlite3", confDbUrl)
+	db, err := sql.Open("sqlite3", config.ConfDbUrl)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	AppConf := map[string]interface{}{
-		"db": db,
-	}
+  config.DbConn = db
 
 	e.GET("/", func(c echo.Context) error {
 		return c.Render(http.StatusOK, "index.html", map[string]interface{}{
-			"APP_URL": confAppUrl,
+			"APP_URL": config.ConfAppUrl,
 		})
 	}).Name = "homepage"
 
-	e.POST("/event", eventController.create)
+  e.POST("/event", eventController.Create).Name = "event.create"
 
-	e.Logger.Fatal(e.Start(":" + confAppPort))
+	e.Logger.Fatal(e.Start(":" + config.ConfAppPort))
 }

@@ -24,18 +24,18 @@ var (
 )
 
 
-type SQLiteRepository struct {
+type EventRepository struct {
   db *sql.DB
 }
 
-func NewSQLiteRepository(db *sql.DB) *SQLiteRepository {
-  return &SQLiteRepository{
+func NewEventRepository(db *sql.DB) *EventRepository {
+  return &EventRepository{
     db: db,
   }
 }
 
 
-func (r *SQLiteRepository) Migrate() error {
+func (r *EventRepository) Migrate() error {
   query := `
     CREATE TABLE IF NOT EXISTS queue_event(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -48,7 +48,7 @@ func (r *SQLiteRepository) Migrate() error {
   return err
 }
 
-func (r *SQLiteRepository) Create(event Event) (*Event, error) {
+func (r *EventRepository) Create(event Event) (*Event, error) {
   res, err := r.db.Exec("INSERT INTO queue_event(title, description) values(?,?)", event.Title, event.Description)
   if err != nil {
     var sqliteErr sqlite3.Error

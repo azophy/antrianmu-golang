@@ -1,20 +1,38 @@
 package event
 
-import {
+import (
+  "fmt"
+  //"log"
+  "net/http"
+
+	"github.com/labstack/echo/v4"
+
+  "antrianmu-golang/web/config"
   eventModel "antrianmu-golang/web/models/event"
-}
+)
+
+var (
+  eventRepo = eventModel.NewEventRepository(config.DbConn)
+)
+
+//func init() {
+  //if err := eventRepo.Migrate(); err != nil {
+    //log.Fatal(err)
+  //}
+//}
 
 // create event
-func create(c echo.Context) error {
+func Create(c echo.Context) error {
   // User ID from path `users/:id`
-  newEvent := eventModel.event{
-    "title": c.FormValue("title"),
-    "description": c.FormValue("description"),
+  newEvent := eventModel.Event{
+    Title: c.FormValue("title"),
+    Description: c.FormValue("description"),
   }
 
-  res, _ := eventModel.create(newEvent)
+  res, _ := eventRepo.Create(newEvent)
 
-  return c.String(http.StatusOK, res.id)
+  msg := fmt.Sprintf("Created new event with id: %d", res.ID)
+  return c.String(http.StatusOK, msg)
 }
 
 // show event for visitor
