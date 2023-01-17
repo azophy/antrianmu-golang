@@ -1,12 +1,11 @@
 package main
 
 import (
-  "log"
+  //"log"
 	"net/http"
-  "database/sql"
+  //"database/sql"
 
 	"github.com/labstack/echo/v4"
-  _ "github.com/mattn/go-sqlite3"
 
 	"antrianmu-golang/web/config"
 	"antrianmu-golang/web/common"
@@ -24,13 +23,7 @@ func main() {
 	//})
 
   config.Load()
-
-	db, err := sql.Open("sqlite3", config.ConfDbUrl)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-  config.DbConn = db
+  config.InitDb()
 
 	e.GET("/", func(c echo.Context) error {
 		return c.Render(http.StatusOK, "index.html", map[string]interface{}{

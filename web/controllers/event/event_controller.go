@@ -2,7 +2,7 @@ package event
 
 import (
   "fmt"
-  //"log"
+  "log"
   "net/http"
 
 	"github.com/labstack/echo/v4"
@@ -12,14 +12,17 @@ import (
 )
 
 var (
-  eventRepo = eventModel.NewEventRepository(config.DbConn)
+  eventRepo *eventModel.EventRepository
 )
 
-//func init() {
-  //if err := eventRepo.Migrate(); err != nil {
-    //log.Fatal(err)
-  //}
-//}
+func init() {
+  config.InitDb()
+  eventRepo = eventModel.NewEventRepository(config.DbConn)
+
+  if err := eventRepo.Migrate(); err != nil {
+    log.Fatal(err)
+  }
+}
 
 // create event
 func Create(c echo.Context) error {

@@ -2,7 +2,10 @@ package config
 
 import (
   "os"
+  "log"
   "database/sql"
+
+  _ "github.com/mattn/go-sqlite3"
 )
 
 var (
@@ -24,4 +27,13 @@ func Load() {
 	if ConfDbUrl == "" {
 	  ConfDbUrl = "database.sqlite"
 	}
+}
+
+func InitDb() {
+	db, err := sql.Open("sqlite3", ConfDbUrl)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+  DbConn = db
 }
