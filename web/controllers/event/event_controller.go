@@ -34,8 +34,14 @@ func Create(c echo.Context) error {
 
   res, _ := eventRepo.Create(newEvent)
 
-  msg := fmt.Sprintf("Created new event with id: %d", res.ID)
-  return c.String(http.StatusOK, msg)
+  //msg := fmt.Sprintf("Created new event with id: %d", res.ID)
+  //return c.String(http.StatusOK, msg)
+  visitorUrl := fmt.Sprintf("%s/event/%d", config.ConfAppUrl, res.ID)
+  return c.Render(http.StatusOK, "event/created_succeed.html", map[string]interface{}{
+    "APP_URL": config.ConfAppUrl,
+    "visitor_url": visitorUrl,
+    "organizer_url": visitorUrl + "/organizer",
+  })
 }
 
 // show event for visitor
