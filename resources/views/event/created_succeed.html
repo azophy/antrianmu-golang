@@ -31,32 +31,28 @@
             </ul>
             -->
         </nav>
-        <h1>Buat <mark>Antrianmu</mark> yang baru dalam 1 menit!</h1>
-        <p>Gak pake install! gak pake beli hardware!</p>
-        <p>
-          <a href="#event_form"><b>Buat sekarang &rarr;</b></a>
-        </p>
     </header>
     <main>
-        <hr>
         <section>
-            <form action="/event" method="post" id="event_form">
-                <header>
-                    <h2>Buat Antrian batu</h2>
-                </header>
-                <label for="input1">Judul:</label>
-                <input type="text" id="input1" name="title" size="20" placeholder="judul antrian">
-                <label for="textarea1">Deskripsi:</label>
-                <textarea cols="40" rows="5" name="description"id="textarea1"></textarea>
-                <!--
-                <label for="select1">Select label:</label>
-                <select id="select1">
-                    <option value="option1">option1</option>
-                    <option value="option2">option2</option>
-                </select>
-                -->
-                <button type="submit">Buat sekarang</button>
-            </form>
+            <header>
+                <h2>Antrian berhasil dibuat</h2>
+            </header>
+            <aside>
+              <h3>Link untuk panitia</h3>
+              <strong>
+                <a href="{{ index . "organizer_url" }}">
+                  {{ index . "organizer_url" }}
+                </a>
+              </strong>
+            </aside>
+            <aside>
+              <h3>Link untuk pengunjung</h3>
+              <strong>
+                <a href="{{ index . "visitor_url" }}">
+                  {{ index . "visitor_url" }}
+                </a>
+              </strong>
+            </aside>
         </section>
     </main>
     <footer>
