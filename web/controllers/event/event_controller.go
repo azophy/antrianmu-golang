@@ -38,7 +38,6 @@ func Create(c echo.Context) error {
   //return c.String(http.StatusOK, msg)
   visitorUrl := fmt.Sprintf("%s/event/%d", config.ConfAppUrl, res.ID)
   return c.Render(http.StatusOK, "event/created_succeed.html", map[string]interface{}{
-    "APP_URL": config.ConfAppUrl,
     "visitor_url": visitorUrl,
     "organizer_url": visitorUrl + "/organizer",
   })

@@ -13,7 +13,7 @@ import (
 func main() {
 	e := echo.New()
 
-	e.Renderer = common.NewTemplateRenderer("resources/views", ".html")
+	e.Renderer = common.NewTemplateRenderer("resources/views", ".html", "base_template.html")
 	e.Static("/assets", "resources/assets")
 
 	//e.GET("/", func(c echo.Context) error {
