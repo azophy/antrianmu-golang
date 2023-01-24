@@ -1,0 +1,46 @@
+<!-- MVP.css quickstart template: https://github.com/andybrewer/mvp/ -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="https://via.placeholder.com/70x70">
+    <link rel="stylesheet" href="{{ index . "APP_URL" }}/assets/css/mvp.css">
+
+    <meta charset="utf-8">
+    <meta name="description" content="My description">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ index . "page_title" }}</title>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="/"><img alt="Logo" src="https://via.placeholder.com/200x70?text=Antrianmu" height="70"></a>
+            <!--
+            <ul>
+                <li>Menu Item 1</li>
+                <li><a href="#">Menu Item 2</a></li>
+                <li><a href="#">Dropdown Menu Item</a>
+                    <ul>
+                        <li><a href="#">Sublink with a long name</a></li>
+                        <li><a href="#">Short sublink</a></li>
+                    </ul>
+                </li>
+            </ul>
+            -->
+        </nav>
+    </header>
+    <main>
+      {{ index . "content_block" }}
+    </main>
+    <footer>
+        <hr>
+        <p>
+        <small>&copy; 2023 <a href="https://twitter.com/azophy">Abdurrahman Shofy Adianto</a></small>
+        </p>
+    </footer>
+</body>
+
+</html>
